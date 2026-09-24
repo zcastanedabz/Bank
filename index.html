@@ -1,5 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EBEFF1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1418" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Bucket Book</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Bucket Book">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +39,9 @@
   --chip:#222D34; --shadow:0 10px 30px rgba(0,0,0,.45);
 }
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0}
+:root{padding-top:env(safe-area-inset-top,0px)}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent}
 button,input,select{font:inherit;color:inherit}
@@ -160,7 +172,8 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .card p{margin:0}
 .loading{padding:60px 0;text-align:center;color:var(--muted)}
 </style>
-
+</head>
+<body>
 <div class="app">
   <header class="top">
     <div class="brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h18v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7l3-4h12l3 4"/><path d="M9 11v6M15 11v6"/></svg>Bucket Book</div>
@@ -758,3 +771,5 @@ render();
 connect();
 })();
 </script>
+</body>
+</html>
