@@ -1,775 +1,529 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#EBEFF1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0E1418" media="(prefers-color-scheme: dark)">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Bucket Book</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Bucket Book">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="My Money">
+<meta name="theme-color" content="#f2f4f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1412" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADyElEQVR4nO3dzW0USxiG0fIVMUBCdwGBgG4KNwJSQE7EGxJyFixKahrjd2jZpn7PWc0Gebrm4avuGlm+e//5Y4Hn/NP7DTAucRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg+hd7zdQHu8fer+FcX348qnjT7/r+AcAZXFRr0T6xCGLF2ifSId7DmW8TPt1ax1HvcK+W+mM6oo17qNpHOdr08d157Vq2UeHp5XjUuuL71+/tX8Ps/j3//+O1x++fFp2cqQLO18/Z2llmiXS+p7j2d1EH797dk0a78WN4jhiNz+u+OPMaDM8OtxzpAeWuiKb34J030rOun23YoT8bqgySt8v3vRxNloZpfsXb7aYMmQW1RBf2e88QoYtowwSR9m1j5HLKN23lbPH+4cbpyCLbTE3oh+kjDLO5Kge7x92GCE3BsY4ZZTR4qjW7mPwreRsxDjKun1MVEYZ6p7jicWecufKohp0chzWGCEzllHGj6PM38ekZZSRt5WzSbeYebOoJpgch7lGyOxllLniKPP0sUAZZZZt5Wzwg9Qpjj4vmmxyVMMepM5y9HnRlHFUo/WxxlZyNnEcZaQ+1iujzHjP8UT3p9wls6jmnhyHXiNk4TLKMnGUHn2sXUZZYFs5a7bFLJ9Ftc7kOPztEbJJGWXJOMrf7GOfMspi28rZmx+krnT0edGak6N6w4PUxY4+L1o5jur1fWy1lZytH0d5XR/bllEWvud44gVPuTtnUW0xOQ7XR4gyym5xlGt9KKPaZVs5u73F3Pgnu9luchyuf957llF2jqNc+9S3LaNsHkf502e/cxlFHOXXU87zi83LKOI4nFOQRSWOn2oTyjiIg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxEjeJo/EfYl9dmPU0OonZxGB5vpdlKmhxETeMwPF6v5Rq2nhz6eI3Gq9dhW9HHy7Rft7v3nz82/pEHv1t2Ua//Tj3jqCRyQ98p2z8OhuVRlkgcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcRD8Afw54icE+jBIAAAAASUVORK5CYII=">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADyElEQVR4nO3dzW0USxiG0fIVMUBCdwGBgG4KNwJSQE7EGxJyFixKahrjd2jZpn7PWc0Gebrm4avuGlm+e//5Y4Hn/NP7DTAucRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg+hd7zdQHu8fer+FcX348qnjT7/r+AcAZXFRr0T6xCGLF2ifSId7DmW8TPt1ax1HvcK+W+mM6oo17qNpHOdr08d157Vq2UeHp5XjUuuL71+/tX8Ps/j3//+O1x++fFp2cqQLO18/Z2llmiXS+p7j2d1EH797dk0a78WN4jhiNz+u+OPMaDM8OtxzpAeWuiKb34J030rOun23YoT8bqgySt8v3vRxNloZpfsXb7aYMmQW1RBf2e88QoYtowwSR9m1j5HLKN23lbPH+4cbpyCLbTE3oh+kjDLO5Kge7x92GCE3BsY4ZZTR4qjW7mPwreRsxDjKun1MVEYZ6p7jicWecufKohp0chzWGCEzllHGj6PM38ekZZSRt5WzSbeYebOoJpgch7lGyOxllLniKPP0sUAZZZZt5Wzwg9Qpjj4vmmxyVMMepM5y9HnRlHFUo/WxxlZyNnEcZaQ+1iujzHjP8UT3p9wls6jmnhyHXiNk4TLKMnGUHn2sXUZZYFs5a7bFLJ9Ftc7kOPztEbJJGWXJOMrf7GOfMspi28rZmx+krnT0edGak6N6w4PUxY4+L1o5jur1fWy1lZytH0d5XR/bllEWvud44gVPuTtnUW0xOQ7XR4gyym5xlGt9KKPaZVs5u73F3Pgnu9luchyuf957llF2jqNc+9S3LaNsHkf502e/cxlFHOXXU87zi83LKOI4nFOQRSWOn2oTyjiIg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxEjeJo/EfYl9dmPU0OonZxGB5vpdlKmhxETeMwPF6v5Rq2nhz6eI3Gq9dhW9HHy7Rft7v3nz82/pEHv1t2Ua//Tj3jqCRyQ98p2z8OhuVRlkgcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcROIgEgeROIjEQSQOInEQiYNIHETiIBIHkTiIxEEkDiJxEImDSBxE4iASB5E4iMRBJA4icRCJg0gcRD8Afw54icE+jBIAAAAASUVORK5CYII=">
+<title>My Money</title>
 <style>
-:root{
-  --bg:#EBEFF1; --surface:#FFFFFF; --surface-2:#F5F7F8; --ink:#14202A; --muted:#5D6A74; --line:#D5DCE1;
-  --accent:#0D6A56; --accent-ink:#FFFFFF; --accent-soft:#DCEEE8;
-  --in:#0B7A4B; --out:#B3362E; --warn:#8A5A00; --warn-bg:#FFF2D2; --bad-bg:#FBE3E0;
-  --chip:#E1E7EB; --shadow:0 10px 30px rgba(20,32,42,.12);
-  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
-  --body:"Figtree", -apple-system, "Segoe UI", system-ui, sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme:dark;
-    --bg:#0E1418; --surface:#172026; --surface-2:#1C262D; --ink:#E5ECF0; --muted:#94A2AC; --line:#27333B;
-    --accent:#44C3A0; --accent-ink:#04231B; --accent-soft:#16352E;
-    --in:#52CB8E; --out:#F2877D; --warn:#EDB553; --warn-bg:#2F2613; --bad-bg:#3A1C1A;
-    --chip:#222D34; --shadow:0 10px 30px rgba(0,0,0,.45);
+  :root {
+    --bg: #f2f4f3;
+    --card: #ffffff;
+    --text: #15201b;
+    --muted: #6b7671;
+    --line: #e3e7e5;
+    --brand: #166548;
+    --brand-soft: #dcefe6;
+    --in: #13804f;
+    --out: #c2413b;
+    --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04);
   }
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --bg:#0E1418; --surface:#172026; --surface-2:#1C262D; --ink:#E5ECF0; --muted:#94A2AC; --line:#27333B;
-  --accent:#44C3A0; --accent-ink:#04231B; --accent-soft:#16352E;
-  --in:#52CB8E; --out:#F2877D; --warn:#EDB553; --warn-bg:#2F2613; --bad-bg:#3A1C1A;
-  --chip:#222D34; --shadow:0 10px 30px rgba(0,0,0,.45);
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{margin:0}
-:root{padding-top:env(safe-area-inset-top,0px)}
-[hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent}
-button,input,select{font:inherit;color:inherit}
-.app{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:14px calc(96px + env(safe-area-inset-bottom,0px))}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:4px 14px}
-.brand{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
-.brand svg{color:var(--accent)}
-.sync{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px;text-align:right}
-.sync i{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block;flex:none}
-.sync.ok i{background:var(--in)} .sync.local i{background:var(--warn)}
-.num{font-variant-numeric:tabular-nums}
-h2{font-family:var(--display);font-weight:700;font-size:17px;margin:0;letter-spacing:-.005em}
-.label{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
-.muted{color:var(--muted)}
-.stack{display:flex;flex-direction:column;gap:14px}
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1412;
+      --card: #1a211e;
+      --text: #eef3f0;
+      --muted: #93a09a;
+      --line: #2a332f;
+      --brand: #3fbf8a;
+      --brand-soft: #1f3a2f;
+      --in: #4fd08f;
+      --out: #ff7a73;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    padding: env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom));
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 0 16px; }
 
-/* summary */
-.summary{background:var(--surface);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;border:1px solid var(--line)}
-.big{font-family:var(--display);font-weight:700;font-size:clamp(34px,10vw,44px);line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.sumrow{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:10px}
-.unassigned{display:flex;align-items:center;gap:10px;background:var(--surface-2);border-radius:12px;padding:10px 12px;flex:1 1 100%}
-.unassigned .v{font-weight:700;margin-left:auto}
-.pill{white-space:nowrap;flex:none;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--chip);color:var(--muted);border:0;cursor:pointer}
-.pill.good{background:var(--accent-soft);color:var(--accent)}
-.pill.bad{background:var(--bad-bg);color:var(--out)}
-.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.qbtn{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 6px;font-weight:600;font-size:13.5px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
-.qbtn svg{width:20px;height:20px}
-.qbtn.in svg{color:var(--in)} .qbtn.out svg{color:var(--out)} .qbtn.mv svg{color:var(--accent)}
+  header { padding: 18px 0 8px; }
+  header h1 { font-size: 30px; font-weight: 700; margin: 0; letter-spacing: -.02em; }
 
-.sechead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
-.link{background:none;border:0;color:var(--accent);font-weight:600;font-size:14px;padding:6px 0;cursor:pointer}
+  .total {
+    background: var(--brand); color: #fff; border-radius: 22px;
+    padding: 22px 20px; margin: 12px 0 16px;
+  }
+  @media (prefers-color-scheme: dark) { .total { color: #06150f; } }
+  .total .label { font-size: 14px; opacity: .85; font-weight: 500; }
+  .total .amount { font-size: 42px; font-weight: 700; letter-spacing: -.02em; margin-top: 4px; font-variant-numeric: tabular-nums; }
 
-/* bucket list */
-.list{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.brow{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;padding:14px 16px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);cursor:pointer}
-.brow:first-child{border-top:0}
-.dot{width:12px;height:12px;border-radius:4px;grid-row:span 2;align-self:start;margin-top:5px}
-.bname{font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:6px;min-width:0}
-.bname span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bname svg{width:13px;height:13px;color:var(--muted);flex:none}
-.bval{font-weight:700;font-size:16px;text-align:right}
-.bval.neg{color:var(--out)}
-.bsub{grid-column:2 / 4;display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted)}
-.bar{flex:1;height:6px;border-radius:99px;background:var(--chip);overflow:hidden}
-.bar b{display:block;height:100%;border-radius:99px}
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+  .btn {
+    border: 0; border-radius: 14px; padding: 14px; font-weight: 600; font-size: 16px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-in { background: var(--card); color: var(--in); box-shadow: var(--shadow); }
+  .btn-out { background: var(--card); color: var(--out); box-shadow: var(--shadow); }
+  .btn-primary { background: var(--brand); color: #fff; width: 100%; }
+  @media (prefers-color-scheme: dark) { .btn-primary { color: #06150f; } }
+  .btn-ghost { background: transparent; color: var(--muted); width: 100%; }
+  .btn-danger { background: transparent; color: var(--out); width: 100%; }
+  .btn:active { transform: scale(.98); }
 
-/* history */
-.mrow{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 16px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);cursor:pointer}
-.mrow:first-child{border-top:0}
-.mtitle{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mamt{font-weight:700;text-align:right}
-.mamt.in{color:var(--in)} .mamt.out{color:var(--out)} .mamt.mv{color:var(--muted)}
-.mroute{grid-column:1 / 3;font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dayhead{font-size:12px;font-weight:600;color:var(--muted);padding:12px 4px 6px}
-.empty{padding:28px 16px;text-align:center;color:var(--muted)}
+  .section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 0 4px 8px; }
+  .section-title h2 { font-size: 20px; margin: 0; }
+  .link { background: none; border: 0; color: var(--brand); font-weight: 600; padding: 4px; }
 
-/* forms */
-.field{display:flex;flex-direction:column;gap:6px}
-.field > span{font-size:13px;font-weight:600;color:var(--muted)}
-input[type=text],input[type=date],select,.amount{width:100%;border:1px solid var(--line);background:var(--surface-2);border-radius:12px;padding:12px 12px;font-size:16px;min-height:46px;appearance:none;-webkit-appearance:none}
-select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
-.amountwrap{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2);border-radius:14px;padding:4px 14px}
-.amountwrap span{font-family:var(--display);font-size:26px;color:var(--muted);font-weight:500}
-.amountwrap input{border:0;background:transparent;font-family:var(--display);font-weight:700;font-size:30px;padding:8px 0;width:100%;min-width:0;outline:none;font-variant-numeric:tabular-nums}
-input:focus-visible,select:focus-visible,.amountwrap:focus-within{outline:2px solid var(--accent);outline-offset:1px}
-.amountwrap input:focus-visible{outline:none}
-button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--chip);border-radius:12px;padding:3px;gap:3px}
-.seg button{border:0;background:transparent;border-radius:9px;padding:9px 4px;font-weight:600;font-size:14px;cursor:pointer;color:var(--muted)}
-.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media (max-width:380px){.row2{grid-template-columns:1fr}}
-.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:700;font-size:15.5px;cursor:pointer;background:var(--chip);color:var(--ink);min-height:48px}
-.btn.primary{background:var(--accent);color:var(--accent-ink)}
-.btn.danger{background:var(--bad-bg);color:var(--out)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.btns{display:flex;gap:10px}
-.btns .btn{flex:1}
-.note{border-radius:12px;padding:10px 12px;font-size:13.5px}
-.note.warn{background:var(--warn-bg);color:var(--warn)}
-.note.bad{background:var(--bad-bg);color:var(--out)}
-.note.good{background:var(--accent-soft);color:var(--accent)}
-.note .link{padding:0;font-size:13.5px;text-decoration:underline}
-.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
-.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent);flex:none}
-.swatches{display:flex;flex-wrap:wrap;gap:10px}
-.swatches label{position:relative;cursor:pointer}
-.swatches input{position:absolute;opacity:0;inset:0}
-.swatches i{display:block;width:30px;height:30px;border-radius:9px;border:3px solid transparent}
-.swatches input:checked + i{border-color:var(--ink)}
-.swatches input:focus-visible + i{outline:2px solid var(--accent);outline-offset:2px}
+  .list { background: var(--card); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; }
+  .row {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    border-bottom: 1px solid var(--line); width: 100%; background: none; border-left: 0; border-right: 0; border-top: 0; text-align: left;
+  }
+  .row:last-child { border-bottom: 0; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+  .row .main { flex: 1; min-width: 0; }
+  .row .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .sub { font-size: 13px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .val { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bar { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; border-radius: 2px; }
+  .pos { color: var(--in); } .neg { color: var(--out); }
+  .ico {
+    width: 34px; height: 34px; border-radius: 50%; flex: none;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;
+  }
+  .ico.in { background: color-mix(in srgb, var(--in) 15%, transparent); color: var(--in); }
+  .ico.out { background: color-mix(in srgb, var(--out) 15%, transparent); color: var(--out); }
+  .empty { padding: 28px 20px; text-align: center; color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .day { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin: 18px 4px 6px; }
 
-/* setup */
-.setup{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px}
-.setup h1{font-family:var(--display);font-size:24px;line-height:1.15;margin:0;letter-spacing:-.015em;text-wrap:balance}
-.srow{display:grid;grid-template-columns:auto 1fr 120px;gap:8px;align-items:center}
-.srow input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent)}
-.srow input[type=text]{min-height:42px;padding:9px 10px}
+  .chips { display: flex; gap: 8px; overflow-x: auto; margin: 4px 0 6px; padding-bottom: 4px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 7px 14px; font-size: 14px; white-space: nowrap; }
+  .chip.on { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-/* nav */
-.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
-.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr auto 1fr;align-items:center;gap:4px}
-.tab{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;font-weight:600;color:var(--muted);padding:6px 0;cursor:pointer}
-.tab svg{width:22px;height:22px}
-.tab[aria-current=page]{color:var(--accent)}
-.fab{border:0;background:var(--accent);color:var(--accent-ink);border-radius:16px;height:48px;padding:0 18px;display:flex;align-items:center;gap:6px;font-weight:700;cursor:pointer;box-shadow:var(--shadow)}
-.fab svg{width:20px;height:20px}
+  /* tab bar */
+  nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    background: color-mix(in srgb, var(--card) 88%, transparent);
+    -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: center; gap: 60px;
+    padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+  }
+  nav button { background: none; border: 0; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 500; padding: 4px 12px; }
+  nav button.on { color: var(--brand); }
+  nav svg { width: 26px; height: 26px; }
 
-/* sheet */
-.sheet-wrap{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center}
-.scrim{position:absolute;inset:0;background:rgba(8,14,18,.45)}
-.sheet{position:relative;background:var(--surface);width:100%;max-width:560px;max-height:92%;overflow:auto;border-radius:20px 20px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:var(--shadow);animation:up .22s ease-out}
-.grab{width:40px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 10px}
-.sheethead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
-.sheethead h2{font-size:20px}
-.x{background:var(--chip);border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
-@keyframes up{from{transform:translateY(30px);opacity:.4}to{transform:none;opacity:1}}
-@media (prefers-reduced-motion:reduce){.sheet{animation:none}}
-.kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
-.kv:first-child{border-top:0}
-.kv b{text-align:right;font-weight:600}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px;z-index:30;max-width:calc(100% - 32px);box-shadow:var(--shadow)}
-.chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:6px 12px;font-weight:600;font-size:13.5px;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
-.card p{margin:0}
-.loading{padding:60px 0;text-align:center;color:var(--muted)}
+  /* sheet */
+  .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 20; }
+  .backdrop.show { opacity: 1; pointer-events: auto; }
+  .sheet {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 21;
+    background: var(--bg); border-radius: 20px 20px 0 0;
+    max-height: 92vh; overflow-y: auto;
+    transform: translateY(105%); transition: transform .3s cubic-bezier(.2,.8,.2,1);
+    padding: 10px 16px calc(20px + env(safe-area-inset-bottom));
+  }
+  .sheet.show { transform: none; }
+  .sheet .inner { max-width: 520px; margin: 0 auto; }
+  .grab { width: 38px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto 12px; }
+  .sheet h3 { font-size: 22px; margin: 0 0 16px; text-align: center; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin: 0 4px 6px; }
+  .input {
+    width: 100%; border: 1px solid var(--line); background: var(--card); border-radius: 12px;
+    padding: 13px 14px; font-size: 17px; outline: none; -webkit-appearance: none; appearance: none;
+  }
+  .input:focus { border-color: var(--brand); }
+  .money-input { font-size: 34px; font-weight: 700; text-align: center; padding: 14px; font-variant-numeric: tabular-nums; }
+  select.input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23889' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+  }
+  .hint { font-size: 13px; color: var(--muted); margin: 6px 4px 0; }
+  .err { color: var(--out); font-size: 14px; margin: -4px 4px 12px; min-height: 0; }
+  .stack { display: grid; gap: 8px; margin-top: 8px; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+  .sw { width: 32px; height: 32px; border-radius: 50%; border: 3px solid transparent; }
+  .sw.on { border-color: var(--text); }
+  .detail { background: var(--card); border-radius: 14px; padding: 4px 16px; margin-bottom: 14px; }
+  .detail div { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+  .detail div:last-child { border-bottom: 0; }
+  .detail span:first-child { color: var(--muted); }
+  .detail span:last-child { text-align: right; font-weight: 500; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 500;
+    opacity: 0; transition: all .25s; z-index: 30; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%); }
+  .hidden { display: none !important; }
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="top">
-    <div class="brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h18v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 7l3-4h12l3 4"/><path d="M9 11v6M15 11v6"/></svg>Bucket Book</div>
-    <span id="sync" class="sync"><i></i><span>Connecting…</span></span>
-  </header>
-  <main id="view"><div class="loading">Loading your buckets…</div></main>
-</div>
 
-<nav class="tabs" aria-label="Main">
-  <div class="in">
-    <button class="tab" data-tab="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Buckets</button>
-    <button class="tab" data-tab="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>History</button>
-    <button class="fab" id="fab" aria-label="Add a movement"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add</button>
-    <button class="tab" data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</button>
+<!-- DASHBOARD -->
+<main id="view-home" class="wrap">
+  <header><h1>My Money</h1></header>
+  <div class="total">
+    <div class="label">Total in bank account</div>
+    <div class="amount" id="total">$0.00</div>
   </div>
+  <div class="actions">
+    <button class="btn btn-in" onclick="openMoney('in')">＋ Add money</button>
+    <button class="btn btn-out" onclick="openMoney('out')">− Spend</button>
+  </div>
+  <div class="section-title">
+    <h2>What it's for</h2>
+    <button class="link" onclick="openCategory()">＋ New</button>
+  </div>
+  <div class="list" id="cats"></div>
+  <p class="hint" style="text-align:center;margin-top:12px">Tap a category to rename or delete it.</p>
+</main>
+
+<!-- HISTORY -->
+<main id="view-history" class="wrap hidden">
+  <header><h1>History</h1></header>
+  <div class="chips" id="filters"></div>
+  <div id="history"></div>
+</main>
+
+<nav>
+  <button id="tab-home" class="on" onclick="showView('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+    Dashboard
+  </button>
+  <button id="tab-history" onclick="showView('history')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    History
+  </button>
 </nav>
 
-<div id="sheet" class="sheet-wrap" hidden>
-  <div class="scrim" data-act="close"></div>
-  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="grab"></div><div id="sheetBody"></div></div>
-</div>
-<div id="toast" class="toast" role="status" hidden></div>
+<div class="backdrop" id="backdrop" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet"><div class="inner"><div class="grab"></div><div id="sheet-body"></div></div></div>
+<div class="toast" id="toast"></div>
 
 <script>
-(function(){
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const COLORS = ['#2F7D6D','#3A6FB0','#B8662F','#8A4FA8','#B03A5B','#6F8430','#2A91A8','#8C6B3E'];
-const UN = 'unassigned';
-const CACHE_KEY = 'bucketbook-v1';
-const ICON = {
-  in:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg>',
-  out:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V8M6 14l6-6 6 6M5 4h14"/></svg>',
-  mv:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/></svg>',
-  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
-  x:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+const KEY = 'myMoneyEnvelopes.v1';
+const COLORS = ['#166548','#2f6fd6','#d9822b','#8b4fc9','#c2413b','#1a9aa0','#b8942a','#d0508f','#5b6b73'];
+
+let state = load();
+let filter = 'all';
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const s = JSON.parse(raw);
+      if (s && Array.isArray(s.categories) && Array.isArray(s.tx)) return s;
+    }
+  } catch (e) {}
+  return { categories: [], tx: [] };
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); }
+  catch (e) { toast('Could not save on this device'); }
+}
+
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = cents => (cents < 0 ? '-' : '') + '$' + (Math.abs(cents) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const toCents = str => {
+  const n = parseFloat(String(str).replace(/[^0-9.]/g, ''));
+  return isFinite(n) ? Math.round(n * 100) : 0;
 };
+const cat = id => state.categories.find(c => c.id === id);
 
-/* ---------- state ---------- */
-let S = { settings:{ currency:'$', check:null }, buckets:[], movements:{} };
-let mode = 'loading';   // loading | cloud | local
-let db = null, stateRef = null, movCol = null;
-let tab = 'home', histFilter = 'all';
-
-const today = () => { const d = new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
-const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
-function money(c, sign){
-  const cur = S.settings.currency || '$';
-  const v = (Math.abs(c)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-  const pre = c < 0 ? '−' : (sign && c > 0 ? '+' : '');
-  return pre + cur + v;
-}
-function parseMoney(str){
-  const t = String(str ?? '').replace(/,/g,'').trim();
-  if (!/^\d*\.?\d{0,2}$/.test(t) || t === '' || t === '.') return NaN;
-  return Math.round(parseFloat(t) * 100);
-}
-function fmtDate(d){
-  const [y,m,dd] = d.split('-').map(Number);
-  const dt = new Date(y, m-1, dd);
-  const now = new Date();
-  const opts = { weekday:'short', month:'short', day:'numeric' };
-  if (y !== now.getFullYear()) opts.year = 'numeric';
-  if (d === today()) return 'Today';
-  return dt.toLocaleDateString('en-US', opts);
-}
-const liveBuckets = () => S.buckets.filter(b => !b.archived).sort((a,b) => (a.order ?? 0) - (b.order ?? 0));
-const bucketById = id => S.buckets.find(b => b.id === id);
-const nameOf = id => id === UN ? 'Unassigned' : (bucketById(id)?.name || 'Deleted bucket');
-const colorOf = id => id === UN ? 'var(--muted)' : (bucketById(id)?.color || COLORS[0]);
-
-function balances(movs){
-  const b = { [UN]:0 };
-  S.buckets.forEach(x => b[x.id] = 0);
-  const add = (k,v) => { if (!(k in b)) b[k] = 0; b[k] += v; };
-  for (const m of Object.values(movs || S.movements)){
-    const a = m.amount;
-    if (m.type === 'deposit' || m.type === 'adjust') add(m.to, a);
-    else if (m.type === 'expense') add(m.from, -a);
-    else if (m.type === 'transfer'){ add(m.from, -a); add(m.to, a); }
-  }
-  return b;
-}
-const totalOf = bal => Object.values(bal).reduce((s,v) => s+v, 0);
-const sortedMovs = () => Object.values(S.movements).sort((a,b) => a.date === b.date ? (b.createdAt||0) - (a.createdAt||0) : (a.date < b.date ? 1 : -1));
-
-/* ---------- persistence ---------- */
-function cacheWrite(){
-  try { localStorage.setItem(CACHE_KEY, JSON.stringify({ settings:S.settings, buckets:S.buckets, movements:S.movements, origin: mode === 'cloud' ? 'cloud' : 'local' })); } catch(e){}
-}
-function cacheRead(){ try { return JSON.parse(localStorage.getItem(CACHE_KEY) || 'null'); } catch(e){ return null; } }
-function onWriteErr(e){
-  if (e && e.code === 'quota_exceeded') toast('Storage is full. Delete some old movements to add new ones.');
-  else toast('Couldn’t save that change. Check your connection and try again.');
-}
-let chain = Promise.resolve();
-function queue(fn){ chain = chain.then(fn).catch(onWriteErr); return chain; }
-function saveState(){
-  cacheWrite(); render();
-  if (mode !== 'cloud') return;
-  const body = JSON.parse(JSON.stringify({ settings:S.settings, buckets:S.buckets }));
-  queue(() => stateRef.set(body));
-}
-function saveMovement(m){
-  S.movements[m.id] = m; cacheWrite(); render();
-  if (mode === 'cloud') queue(() => movCol.doc(m.id).set(JSON.parse(JSON.stringify(m))));
-}
-function deleteMovement(id){
-  delete S.movements[id]; cacheWrite(); render();
-  if (mode === 'cloud') queue(() => movCol.doc(id).delete());
-}
-
-function setSync(){
-  const el = $('#sync');
-  el.className = 'sync ' + (mode === 'cloud' ? 'ok' : mode === 'local' ? 'local' : '');
-  el.lastElementChild.textContent = mode === 'cloud' ? 'Saved to your account' : mode === 'local' ? 'Saved on this device' : 'Connecting…';
-}
-function goLocal(){
-  mode = 'local';
-  const c = cacheRead();
-  if (c && !S.buckets.length){ S.settings = {...S.settings, ...c.settings}; S.buckets = c.buckets || []; S.movements = c.movements || {}; }
-  cacheWrite(); render();
-}
-
-async function connect(){
-  if (!window.claude || typeof window.claude.use !== 'function'){ goLocal(); return; }
-  let d = null, u = null, uid = null;
-  try { [d, u] = await Promise.all([window.claude.use('db'), window.claude.use('user')]); } catch(e){}
-  try { uid = u ? await u.id() : null; } catch(e){}
-  if (!d || !uid){ goLocal(); return; }
-  db = d;
-  stateRef = db.doc('data/users/' + uid + '/state');
-  movCol = stateRef.collection('movements');
-  const cache = cacheRead();
-  let stateDone = false, movDone = false, cloudState, cloudMovs = {};
-  const applyState = v => { S.settings = { currency:'$', check:null, ...(v.settings || {}) }; S.buckets = (v.buckets || []).map(b => ({...b})); };
-  const ready = () => {
-    if (mode !== 'loading' || !(stateDone && movDone)) return;
-    mode = 'cloud';
-    const localData = cache && cache.origin === 'local' && (cache.buckets || []).length;
-    if (cloudState === null && localData){
-      // First time signed in: copy this device's data up to the account.
-      S.settings = {...S.settings, ...(cache.settings||{})}; S.buckets = cache.buckets; S.movements = cache.movements || {};
-      saveState();
-      Object.values(S.movements).forEach(m => queue(() => movCol.doc(m.id).set(JSON.parse(JSON.stringify(m)))));
-      toast('Moved your data from this device to your account.');
-    } else {
-      if (cloudState) applyState(cloudState); else { S.buckets = []; S.settings = { currency: S.settings.currency || '$', check:null }; }
-      S.movements = cloudMovs;
+function balance(catId) {
+  return state.tx.reduce((sum, t) => {
+    if (t.type === 'move') {
+      if (t.from === catId) return sum - t.amount;
+      if (t.to === catId) return sum + t.amount;
+      return sum;
     }
-    cacheWrite(); render();
-  };
-  const fail = () => { if (mode !== 'local'){ toast('Can’t reach your saved data right now. Changes stay on this device.'); goLocal(); } };
-  stateRef.onSnapshot(s => {
-    if (s.exists) cloudState = s.data() || {};
-    else if (!s.metadata.fromCache) cloudState = null;
-    else return;
-    stateDone = true;
-    if (mode === 'cloud'){ if (cloudState) applyState(cloudState); cacheWrite(); render(); }
-    else ready();
-  }, fail);
-  movCol.onSnapshot(q => {
-    if (q.metadata.fromCache && q.empty && !movDone) return;
-    const map = {};
-    q.docs.forEach(doc => { const v = doc.data(); if (v) map[doc.id] = {...v, id: doc.id}; });
-    cloudMovs = map; movDone = true;
-    if (mode === 'cloud'){ S.movements = map; cacheWrite(); render(); }
-    else ready();
-  }, fail);
-  setTimeout(() => {
-    if (mode === 'loading'){ toast('Still connecting. Showing the last saved copy.'); }
-  }, 12000);
+    if (t.catId !== catId) return sum;
+    return sum + (t.type === 'in' ? t.amount : -t.amount);
+  }, 0);
+}
+function total() {
+  return state.tx.reduce((s, t) => s + (t.type === 'in' ? t.amount : t.type === 'out' ? -t.amount : 0), 0);
 }
 
-/* ---------- toast ---------- */
-let toastT;
-function toast(msg){
-  const t = $('#toast'); t.textContent = msg; t.hidden = false;
-  clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 3200);
-}
-
-/* ---------- rendering ---------- */
-function render(){
-  setSync();
-  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-current', b.dataset.tab === tab ? 'page' : 'false'));
-  const v = $('#view');
-  if (mode === 'loading' && !S.buckets.length){ v.innerHTML = '<div class="loading">Loading your buckets…</div>'; return; }
-  if (tab === 'home') v.innerHTML = liveBuckets().length ? homeHTML() : setupHTML();
-  else if (tab === 'history') v.innerHTML = historyHTML();
-  else v.innerHTML = settingsHTML();
-  if (tab === 'home' && !liveBuckets().length) wireSetup();
-}
-
-function checkPill(total){
-  const c = S.settings.check;
-  if (!c) return '<button class="pill" data-act="reconcile">Check against bank</button>';
-  const when = fmtDate(c.date);
-  if (c.bank === c.app) return `<button class="pill good" data-act="reconcile">✓ Matched bank · ${esc(when)}</button>`;
-  return `<button class="pill bad" data-act="reconcile">Off by ${money(c.app - c.bank)} · ${esc(when)}</button>`;
-}
-
-function homeHTML(){
-  const bal = balances(); const total = totalOf(bal);
-  const rows = liveBuckets().map(b => {
-    const v = bal[b.id] || 0;
-    let sub = '';
-    if (b.goal){
-      const pct = Math.max(0, Math.min(100, v / b.goal * 100));
-      sub = `<div class="bsub"><div class="bar"><b style="width:${pct}%;background:${esc(b.color)}"></b></div><span class="num">${Math.round(pct)}% of ${money(b.goal)}</span></div>`;
-    } else {
-      const share = total > 0 ? Math.max(0, v/total*100) : 0;
-      sub = `<div class="bsub"><div class="bar"><b style="width:${share}%;background:${esc(b.color)};opacity:.55"></b></div><span class="num">${Math.round(share)}% of total</span></div>`;
-    }
-    return `<button class="brow" data-act="bucket" data-id="${esc(b.id)}">
-      <i class="dot" style="background:${esc(b.color)}"></i>
-      <span class="bname"><span>${esc(b.name)}</span>${b.protected ? ICON.lock : ''}</span>
-      <span class="bval num ${v<0?'neg':''}">${money(v)}</span>${sub}</button>`;
-  }).join('');
-  const un = bal[UN] || 0;
-  return `<div class="stack">
-    <section class="summary">
-      <div class="sumrow"><span class="label">Total in account</span>${checkPill(total)}</div>
-      <div class="big">${money(total)}</div>
-      <div class="unassigned"><span><b>Unassigned</b><br><span class="muted" style="font-size:12.5px">${un > 0 ? 'Not in a bucket yet' : un < 0 ? 'Overspent. Move money in to cover it.' : 'Every dollar has a bucket'}</span></span>
-        <span class="v num ${un<0?'bval neg':''}">${money(un)}</span>
-        ${un > 0 ? '<button class="pill good" data-act="assign">Assign</button>' : ''}</div>
-    </section>
-    <div class="quick">
-      <button class="qbtn in" data-act="new" data-type="deposit">${ICON.in}Money in</button>
-      <button class="qbtn out" data-act="new" data-type="expense">${ICON.out}Spend</button>
-      <button class="qbtn mv" data-act="new" data-type="transfer">${ICON.mv}Move</button>
-    </div>
-    <div class="sechead"><h2>Buckets</h2><button class="link" data-act="newbucket">+ New bucket</button></div>
-    <div class="list">${rows}</div>
-  </div>`;
-}
-
-function setupHTML(){
-  const defs = [['Bills',false,true],['Savings',true,true],['Emergency fund',true,true],['Spending money',false,false]];
-  return `<section class="setup">
-    <span class="label">Get started</span>
-    <h1>Split your savings account into buckets</h1>
-    <p class="muted" style="margin:0">Enter how much of your current bank balance belongs to each bucket. Protected buckets ask you to confirm before you spend from them. You can rename, add or remove buckets later.</p>
-    <div class="stack" id="setupRows" style="gap:8px">
-      ${defs.map((d,i) => setupRow(d[0], d[1], d[2], i)).join('')}
-    </div>
-    <button class="link" id="setupAdd" style="align-self:flex-start">+ Add another bucket</button>
-    <div class="note good num" id="setupTotal">Total: ${money(0)}</div>
-    <button class="btn primary" id="setupGo">Create buckets</button>
-  </section>`;
-}
-function setupRow(name, prot, on, i){
-  return `<div class="srow" data-prot="${prot?1:0}">
-    <input type="checkbox" ${on?'checked':''} aria-label="Include bucket">
-    <input type="text" id="sname${i}" value="${esc(name)}" placeholder="Bucket name" aria-label="Bucket name">
-    <input type="text" id="samt${i}" inputmode="decimal" placeholder="0.00" aria-label="Starting amount" class="num">
-  </div>`;
-}
-function wireSetup(){
-  let n = 10;
-  const upd = () => {
-    let t = 0;
-    document.querySelectorAll('#setupRows .srow').forEach(r => {
-      const [cb,,amt] = r.querySelectorAll('input'); const v = parseMoney(amt.value);
-      if (cb.checked && v > 0) t += v;
-    });
-    $('#setupTotal').textContent = 'Total: ' + money(t) + ' (should match your bank balance)';
-  };
-  $('#setupRows').addEventListener('input', upd);
-  $('#setupRows').addEventListener('change', upd);
-  $('#setupAdd').onclick = () => { $('#setupRows').insertAdjacentHTML('beforeend', setupRow('', false, true, n++)); };
-  $('#setupGo').onclick = () => {
-    const list = [];
-    let bad = false;
-    document.querySelectorAll('#setupRows .srow').forEach(r => {
-      const [cb,nm,amt] = r.querySelectorAll('input');
-      if (!cb.checked || !nm.value.trim()) return;
-      const v = amt.value.trim() ? parseMoney(amt.value) : 0;
-      if (isNaN(v)) bad = true;
-      list.push({ name:nm.value.trim().slice(0,40), amount:v||0, prot:r.dataset.prot === '1' });
-    });
-    if (bad){ toast('One of the amounts isn’t a number. Use digits like 250.00.'); return; }
-    if (!list.length){ toast('Tick at least one bucket and give it a name.'); return; }
-    const now = Date.now();
-    S.buckets = list.map((x,i) => ({ id:newId()+i, name:x.name, color:COLORS[i % COLORS.length], goal:null, protected:x.prot, order:i }));
-    saveState();
-    list.forEach((x,i) => { if (x.amount > 0) saveMovement({ id:newId()+'s'+i, type:'deposit', amount:x.amount, to:S.buckets[i].id, from:null, date:today(), note:'Starting balance', createdAt:now+i }); });
-    toast('Buckets created.');
-  };
-}
-
-function movInfo(m, focus){
-  let title, route, amt, cls;
-  const a = m.amount;
-  if (m.type === 'deposit'){ title = m.note || 'Money in'; route = 'Into ' + nameOf(m.to); amt = money(a,true); cls = 'in'; }
-  else if (m.type === 'expense'){ title = m.note || 'Spent'; route = 'From ' + nameOf(m.from); amt = money(-a); cls = 'out'; }
-  else if (m.type === 'adjust'){ title = m.note || 'Bank adjustment'; route = 'Adjustment · ' + nameOf(m.to); amt = money(a,true); cls = a >= 0 ? 'in' : 'out'; }
-  else {
-    title = m.note || 'Moved'; route = nameOf(m.from) + ' → ' + nameOf(m.to);
-    if (focus && focus === m.from){ amt = money(-a); cls = 'out'; }
-    else if (focus && focus === m.to){ amt = money(a,true); cls = 'in'; }
-    else { amt = money(a); cls = 'mv'; }
+/* ---------- render ---------- */
+function render() {
+  $('total').textContent = fmt(total());
+  const tot = Math.max(total(), 1);
+  const cats = $('cats');
+  if (!state.categories.length) {
+    cats.innerHTML = `<div class="empty">No categories yet.<br>Tap <b>Add money</b> to put your first amount in, and create a category like “Savings” or “Mom's money”.</div>`;
+  } else {
+    cats.innerHTML = state.categories.map(c => {
+      const b = balance(c.id);
+      const pct = Math.max(0, Math.min(100, b / tot * 100));
+      return `<button class="row" onclick="openCategory('${c.id}')">
+        <span class="dot" style="background:${c.color}"></span>
+        <span class="main">
+          <div class="name">${esc(c.name)}</div>
+          <div class="bar"><i style="width:${pct}%;background:${c.color}"></i></div>
+        </span>
+        <span class="val ${b < 0 ? 'neg' : ''}">${fmt(b)}</span>
+      </button>`;
+    }).join('');
   }
-  return { title, route, amt, cls };
-}
-function movRow(m, focus){
-  const i = movInfo(m, focus);
-  return `<button class="mrow" data-act="mov" data-id="${esc(m.id)}"><span class="mtitle">${esc(i.title)}</span><span class="mamt num ${i.cls}">${i.amt}</span><span class="mroute">${esc(i.route)}</span></button>`;
+  renderHistory();
 }
 
-function historyHTML(){
-  const all = sortedMovs().filter(m => histFilter === 'all' || m.from === histFilter || m.to === histFilter);
-  const opts = [['all','All buckets'],[UN,'Unassigned'], ...liveBuckets().map(b => [b.id, b.name])];
-  let html = `<div class="stack"><div class="sechead"><h2>History</h2><span class="muted num" style="font-size:13px">${all.length} movement${all.length===1?'':'s'}</span></div>
-    <select id="histFilter" aria-label="Filter by bucket">${opts.map(o => `<option value="${esc(o[0])}" ${o[0]===histFilter?'selected':''}>${esc(o[1])}</option>`).join('')}</select>`;
-  if (!all.length) return html + '<div class="list"><div class="empty">No movements yet. Tap Add to record money coming in, going out, or moving between buckets.</div></div></div>';
-  const focus = histFilter === 'all' ? null : histFilter;
-  let cur = null, group = [];
-  const flush = () => { if (group.length) html += `<div><div class="dayhead">${esc(fmtDate(cur))}</div><div class="list">${group.join('')}</div></div>`; group = []; };
-  all.forEach(m => { if (m.date !== cur){ flush(); cur = m.date; } group.push(movRow(m, focus)); });
-  flush();
-  return html + '</div>';
-}
+function renderHistory() {
+  const f = $('filters');
+  const opts = [['all', 'All'], ['in', 'Money in'], ['out', 'Spent'], ...state.categories.map(c => [c.id, c.name])];
+  f.innerHTML = opts.map(([k, l]) => `<button class="chip ${filter === k ? 'on' : ''}" onclick="setFilter('${k}')">${esc(l)}</button>`).join('');
 
-function settingsHTML(){
-  const bal = balances();
-  const cur = S.settings.currency || '$';
-  const bl = liveBuckets().map(b => `<button class="brow" data-act="editbucket" data-id="${esc(b.id)}"><i class="dot" style="background:${esc(b.color)}"></i><span class="bname"><span>${esc(b.name)}</span>${b.protected?ICON.lock:''}</span><span class="bval num">${money(bal[b.id]||0)}</span><div class="bsub">${b.goal ? 'Goal ' + money(b.goal) : 'No goal'} · Tap to edit</div></button>`).join('');
-  return `<div class="stack">
-    <h2>Settings</h2>
-    <div class="card">
-      <span class="label">Currency symbol</span>
-      <div class="chips">${['$','BZ$','US$','€','£'].map(c => `<button class="chip" data-act="cur" data-cur="${esc(c)}" aria-pressed="${c===cur}">${esc(c)}</button>`).join('')}</div>
-      <input type="text" id="curInput" maxlength="4" value="${esc(cur)}" aria-label="Custom currency symbol">
-    </div>
-    <div class="sechead"><h2>Buckets</h2><button class="link" data-act="newbucket">+ New bucket</button></div>
-    <div class="list">${bl || '<div class="empty">No buckets yet.</div>'}</div>
-    <div class="card">
-      <span class="label">Where your data is saved</span>
-      <p>${mode === 'cloud' ? 'Your buckets and history are saved to your Claude account, so refreshing or switching devices keeps everything. Only you can see this data.' : 'Your data is saved in this browser on this device. It survives a refresh, but clearing Safari’s website data would erase it.'}</p>
-      <button class="btn" data-act="csv">Copy history as CSV</button>
-    </div>
-    <div class="card">
-      <span class="label">How it works</span>
-      <p class="muted">Your real bank account holds one balance. Bucket Book splits that balance into buckets. Money in goes to a bucket or to Unassigned. Spending comes out of one bucket. Moving shifts money between buckets without changing the bank total. Use “Check against bank” now and then to make sure the app still matches your bank.</p>
-    </div>
-  </div>`;
-}
+  let list = [...state.tx].sort((a, b) => b.date - a.date);
+  if (filter === 'in' || filter === 'out') list = list.filter(t => t.type === filter);
+  else if (filter !== 'all') list = list.filter(t => t.catId === filter || t.from === filter || t.to === filter);
 
-/* ---------- sheets ---------- */
-function openSheet(html, wire){
-  $('#sheetBody').innerHTML = html;
-  $('#sheet').hidden = false; $('#toast').hidden = true;
-  document.body.style.overflow = 'hidden';
-  if (wire) wire($('#sheetBody'));
-}
-function closeSheet(){ $('#sheet').hidden = true; $('#sheetBody').innerHTML = ''; document.body.style.overflow = ''; }
-const head = t => `<div class="sheethead"><h2 id="sheetTitle">${esc(t)}</h2><button class="x" data-act="close" aria-label="Close">${ICON.x}</button></div>`;
+  const h = $('history');
+  if (!list.length) { h.innerHTML = `<div class="list"><div class="empty">Nothing here yet.</div></div>`; return; }
 
-function bucketOptions(sel, withBal, includeUn = true){
-  const bal = balances();
-  const list = [...(includeUn ? [{id:UN, name:'Unassigned'}] : []), ...liveBuckets()];
-  return list.map(b => `<option value="${esc(b.id)}" ${b.id===sel?'selected':''}>${esc(b.name)}${withBal ? ' · ' + money(bal[b.id]||0) : ''}</option>`).join('');
-}
-
-function movementSheet(type = 'deposit', preset = {}){
-  if (!liveBuckets().length){ toast('Create your buckets first.'); return; }
-  const bal = balances();
-  const firstWithMoney = (liveBuckets().find(b => (bal[b.id]||0) > 0) || liveBuckets()[0]).id;
-  let st = { type, from: preset.from || (bal[UN] > 0 && type==='transfer' ? UN : firstWithMoney), to: preset.to || (type==='deposit' ? UN : liveBuckets().find(b => b.id !== (preset.from || firstWithMoney))?.id || UN) };
-  if (type === 'deposit' && preset.to) st.to = preset.to;
-  const html = () => {
-    const t = st.type;
-    return head('New movement') + `<form class="stack" id="mform" novalidate>
-      <div class="seg" role="group" aria-label="Type">
-        <button type="button" data-type="deposit" aria-pressed="${t==='deposit'}">Money in</button>
-        <button type="button" data-type="expense" aria-pressed="${t==='expense'}">Spend</button>
-        <button type="button" data-type="transfer" aria-pressed="${t==='transfer'}">Move</button>
-      </div>
-      <label class="field"><span>Amount</span><div class="amountwrap"><span>${esc(S.settings.currency||'$')}</span><input id="mAmt" inputmode="decimal" autocomplete="off" placeholder="0.00" value="${esc(st.amt||'')}"></div></label>
-      ${t === 'deposit' ? `<label class="field"><span>Put it in</span><select id="mTo">${bucketOptions(st.to, true)}</select></label>` : ''}
-      ${t === 'expense' ? `<label class="field"><span>Take it from</span><select id="mFrom">${bucketOptions(st.from, true)}</select></label>` : ''}
-      ${t === 'transfer' ? `<div class="row2"><label class="field"><span>From</span><select id="mFrom">${bucketOptions(st.from, true)}</select></label><label class="field"><span>To</span><select id="mTo">${bucketOptions(st.to, true)}</select></label></div>` : ''}
-      <label class="field"><span>${t==='deposit'?'Where it came from':t==='expense'?'What it was for':'Why (optional)'}</span><input type="text" id="mNote" maxlength="80" placeholder="${t==='deposit'?'Paycheck, gift…':t==='expense'?'Electric bill, rent…':'Covering a bill…'}" value="${esc(st.note||'')}"></label>
-      <label class="field"><span>Date</span><input type="date" id="mDate" value="${esc(st.date||today())}"></label>
-      <div id="mWarn" class="stack" style="gap:8px"></div>
-      <button class="btn primary" id="mSave" type="submit">Save</button>
-    </form>`;
-  };
-  const wire = root => {
-    const g = id => root.querySelector('#'+id);
-    root.querySelectorAll('.seg button').forEach(b => b.onclick = () => { grab(); st.type = b.dataset.type; if (st.type==='deposit') st.to = st.to || UN; openSheet(html(), wire); });
-    const grab = () => { st.amt = g('mAmt').value; st.note = g('mNote').value; st.date = g('mDate').value; if (g('mFrom')) st.from = g('mFrom').value; if (g('mTo')) st.to = g('mTo').value; };
-    const validate = () => {
-      grab();
-      const w = g('mWarn'); const a = parseMoney(st.amt); const bal = balances();
-      let msgs = [], ok = a > 0;
-      if (st.amt && isNaN(a)) msgs.push('<div class="note bad">Type the amount with digits, like 45.50.</div>');
-      if (st.type !== 'deposit'){
-        const have = bal[st.from] || 0; const fb = bucketById(st.from);
-        if (st.type === 'transfer' && st.from === st.to){ ok = false; msgs.push('<div class="note bad">Pick two different buckets.</div>'); }
-        if (a > have){ ok = false; msgs.push(`<div class="note bad">${esc(nameOf(st.from))} only has ${money(have)}. ${st.type==='expense' ? `Lower the amount, or <button type="button" class="link" data-act="cover">move money into ${esc(nameOf(st.from))}</button> first.` : 'Lower the amount.'}</div>`); }
-        if (fb && fb.protected && a > 0 && a <= have){
-          const was = g('mProt')?.checked;
-          msgs.push(`<label class="note warn check"><input type="checkbox" id="mProt" ${was?'checked':''}> <span><b>${esc(fb.name)} is protected.</b> Tick to confirm you want to take ${money(a)} out of it.</span></label>`);
-          if (!was) ok = false;
-        }
-      }
-      if (!st.date) ok = false;
-      w.innerHTML = msgs.join('');
-      const p = w.querySelector('#mProt'); if (p) p.onchange = validate;
-      const cv = w.querySelector('[data-act=cover]'); if (cv) cv.onclick = () => { const target = st.from; movementSheet('transfer', { to: target, from: liveBuckets().find(b => b.id !== target && (balances()[b.id]||0) > 0 && !b.protected)?.id || UN }); };
-      g('mSave').disabled = !ok;
-      g('mSave').textContent = a > 0 ? (st.type==='deposit' ? `Add ${money(a)} to ${nameOf(st.to)}` : st.type==='expense' ? `Spend ${money(a)} from ${nameOf(st.from)}` : `Move ${money(a)}`) : 'Save';
-      return ok;
-    };
-    root.querySelectorAll('input,select').forEach(el => { if (el.id !== 'mProt') el.addEventListener('input', validate); el.addEventListener('change', e => { if (e.target.id !== 'mProt') validate(); }); });
-    g('mform').onsubmit = e => {
-      e.preventDefault();
-      if (!validate()) return;
-      const a = parseMoney(st.amt);
-      const m = { id:newId(), type:st.type, amount:a, from: st.type==='deposit' ? null : st.from, to: st.type==='expense' ? null : st.to, date: st.date, note: (st.note||'').trim().slice(0,80), createdAt: Date.now() };
-      saveMovement(m); closeSheet();
-      toast(st.type==='deposit' ? `Added ${money(a)} to ${nameOf(m.to)}` : st.type==='expense' ? `Spent ${money(a)} from ${nameOf(m.from)}` : `Moved ${money(a)} to ${nameOf(m.to)}`);
-    };
-    validate();
-    if (!preset.noFocus) setTimeout(() => g('mAmt')?.focus(), 250);
-  };
-  openSheet(html(), wire);
-}
-
-function bucketSheet(id){
-  const b = bucketById(id); if (!b) return;
-  const bal = balances(); const v = bal[id] || 0;
-  const movs = sortedMovs().filter(m => m.from === id || m.to === id);
-  const pct = b.goal ? Math.max(0, Math.min(100, v/b.goal*100)) : null;
-  openSheet(head(b.name) + `<div class="stack">
-    <div class="summary" style="padding:14px">
-      <div class="sumrow"><span class="label">Balance</span>${b.protected ? `<span class="pill">${ICON.lock} Protected</span>` : ''}</div>
-      <div class="big num" style="font-size:36px;${v<0?'color:var(--out)':''}">${money(v)}</div>
-      ${b.goal ? `<div class="bsub" style="grid-column:auto"><div class="bar"><b style="width:${pct}%;background:${esc(b.color)}"></b></div><span class="num">${money(Math.max(0,b.goal - v))} to go</span></div>` : ''}
-    </div>
-    <div class="quick">
-      <button class="qbtn in" data-act="new" data-type="deposit" data-to="${esc(id)}">${ICON.in}Add</button>
-      <button class="qbtn out" data-act="new" data-type="expense" data-from="${esc(id)}">${ICON.out}Spend</button>
-      <button class="qbtn mv" data-act="new" data-type="transfer" data-from="${esc(id)}">${ICON.mv}Move</button>
-    </div>
-    <div class="sechead"><h2>Recent</h2><button class="link" data-act="editbucket" data-id="${esc(id)}">Edit bucket</button></div>
-    <div class="list">${movs.slice(0,25).map(m => movRow(m, id)).join('') || '<div class="empty">Nothing has moved in or out of this bucket yet.</div>'}</div>
-    ${movs.length > 25 ? `<button class="link" data-act="histof" data-id="${esc(id)}">See all ${movs.length} in History</button>` : ''}
-  </div>`);
-}
-
-function editBucketSheet(id){
-  const b = id ? bucketById(id) : null;
-  const bal = balances(); const v = b ? (bal[b.id]||0) : 0;
-  const color = b?.color || COLORS[liveBuckets().length % COLORS.length];
-  openSheet(head(b ? 'Edit bucket' : 'New bucket') + `<form class="stack" id="bform" novalidate>
-    <label class="field"><span>Name</span><input type="text" id="bName" maxlength="40" value="${esc(b?.name||'')}" placeholder="Rent, Car insurance, Trip…"></label>
-    <label class="field"><span>Goal (optional)</span><input type="text" id="bGoal" inputmode="decimal" class="num" value="${b?.goal ? (b.goal/100).toFixed(2) : ''}" placeholder="How much you want in it"></label>
-    <div class="field"><span>Color</span><div class="swatches">${COLORS.map((c,i) => `<label><input type="radio" name="bColor" value="${c}" ${c===color?'checked':''} aria-label="Color ${i+1}"><i style="background:${c}"></i></label>`).join('')}</div></div>
-    <label class="check"><input type="checkbox" id="bProt" ${b?.protected?'checked':''}><span><b>Protected</b><br><span class="muted">Ask me to confirm before spending or moving money out of this bucket.</span></span></label>
-    <div id="bErr"></div>
-    <button class="btn primary" type="submit">${b ? 'Save changes' : 'Create bucket'}</button>
-    ${b ? (v === 0 ? `<button class="btn danger" type="button" id="bDel">Delete bucket</button>` : `<p class="muted" style="margin:0;font-size:13px">To delete this bucket, move its ${money(v)} to another bucket first.</p>`) : ''}
-  </form>`, root => {
-    root.querySelector('#bform').onsubmit = e => {
-      e.preventDefault();
-      const name = root.querySelector('#bName').value.trim();
-      const gs = root.querySelector('#bGoal').value.trim();
-      const goal = gs ? parseMoney(gs) : null;
-      const err = root.querySelector('#bErr');
-      if (!name){ err.innerHTML = '<div class="note bad">Give the bucket a name.</div>'; return; }
-      if (gs && !(goal > 0)){ err.innerHTML = '<div class="note bad">Type the goal with digits, like 1500.</div>'; return; }
-      const data = { name, goal, color: root.querySelector('input[name=bColor]:checked').value, protected: root.querySelector('#bProt').checked };
-      if (b) Object.assign(b, data);
-      else S.buckets.push({ id:newId(), order: Math.max(0, ...S.buckets.map(x => x.order ?? 0)) + 1, ...data });
-      saveState(); closeSheet(); toast(b ? 'Bucket saved.' : 'Bucket created.');
-    };
-    const del = root.querySelector('#bDel');
-    if (del) del.onclick = () => {
-      if (del.dataset.armed){ b.archived = true; saveState(); closeSheet(); toast('Bucket deleted.'); return; }
-      del.dataset.armed = '1'; del.textContent = 'Tap again to delete';
-    };
+  const groups = {};
+  list.forEach(t => {
+    const d = new Date(t.date);
+    const key = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    (groups[key] = groups[key] || []).push(t);
   });
+  h.innerHTML = Object.entries(groups).map(([day, items]) =>
+    `<div class="day">${day}</div><div class="list">${items.map(txRow).join('')}</div>`
+  ).join('');
 }
 
-function movSheet(id){
-  const m = S.movements[id]; if (!m) return;
-  const i = movInfo(m);
-  const typeName = { deposit:'Money in', expense:'Spend', transfer:'Move', adjust:'Bank adjustment' }[m.type];
-  const rest = {...S.movements}; delete rest[id];
-  const after = balances(rest);
-  const negs = Object.keys(after).filter(k => after[k] < 0 && (balances()[k]||0) >= 0);
-  openSheet(head(i.title) + `<div class="stack">
-    <div class="big num" style="font-size:34px;color:var(--${i.cls==='mv'?'ink':i.cls})">${i.amt}</div>
-    <div><div class="kv"><span class="muted">Type</span><b>${typeName}</b></div>
-    ${m.from ? `<div class="kv"><span class="muted">From</span><b>${esc(nameOf(m.from))}</b></div>` : ''}
-    ${m.to ? `<div class="kv"><span class="muted">To</span><b>${esc(nameOf(m.to))}</b></div>` : ''}
-    <div class="kv"><span class="muted">Date</span><b>${esc(fmtDate(m.date))}</b></div>
-    ${m.note ? `<div class="kv"><span class="muted">Note</span><b>${esc(m.note)}</b></div>` : ''}</div>
-    ${negs.length ? `<div class="note warn">Deleting this would leave ${negs.map(k => esc(nameOf(k))).join(' and ')} below zero.</div>` : ''}
-    <button class="btn danger" id="mDel">Delete movement</button>
-  </div>`, root => {
-    const d = root.querySelector('#mDel');
-    d.onclick = () => {
-      if (d.dataset.armed){ deleteMovement(id); closeSheet(); toast('Movement deleted.'); return; }
-      d.dataset.armed = '1'; d.textContent = 'Tap again to delete';
-    };
-  });
-}
-
-function reconcileSheet(){
-  const total = totalOf(balances());
-  openSheet(head('Check against bank') + `<form class="stack" id="rform" novalidate>
-    <p class="muted" style="margin:0">Open your banking app and type the balance it shows for your savings account.</p>
-    <label class="field"><span>Balance your bank shows</span><div class="amountwrap"><span>${esc(S.settings.currency||'$')}</span><input id="rBank" inputmode="decimal" placeholder="0.00" autocomplete="off"></div></label>
-    <div class="kv"><span class="muted">Bucket Book total</span><b class="num">${money(total)}</b></div>
-    <div id="rOut"></div>
-    <button class="btn primary" type="submit" id="rSave" disabled>Save check</button>
-  </form>`, root => {
-    const inp = root.querySelector('#rBank'), out = root.querySelector('#rOut'), save = root.querySelector('#rSave');
-    let adjust = false;
-    const upd = () => {
-      const bank = parseMoney(inp.value);
-      if (!(bank >= 0)){ out.innerHTML = ''; save.disabled = true; return; }
-      save.disabled = false;
-      const diff = bank - total;
-      if (diff === 0){ out.innerHTML = '<div class="note good">✓ Everything matches your bank.</div>'; save.textContent = 'Save check'; return; }
-      out.innerHTML = `<div class="stack" style="gap:10px"><div class="note bad">Your bank shows ${money(Math.abs(diff))} ${diff > 0 ? 'more' : 'less'} than the app. A missed movement, interest, or a bank fee usually explains it.</div>
-        <label class="check"><input type="checkbox" id="rAdj" ${adjust?'checked':''}><span>Record the ${money(diff, true)} difference in Unassigned as a bank adjustment</span></label>
-        <label class="field"><span>Note</span><input type="text" id="rNote" maxlength="80" value="${diff > 0 ? 'Interest' : 'Bank fee'}"></label></div>`;
-      out.querySelector('#rAdj').onchange = e => { adjust = e.target.checked; };
-      save.textContent = 'Save check';
-    };
-    inp.addEventListener('input', upd);
-    root.querySelector('#rform').onsubmit = e => {
-      e.preventDefault();
-      const bank = parseMoney(inp.value); if (!(bank >= 0)) return;
-      let app = total;
-      const diff = bank - total;
-      if (diff !== 0 && adjust){
-        saveMovement({ id:newId(), type:'adjust', amount:diff, to:UN, from:null, date:today(), note:(out.querySelector('#rNote')?.value || 'Bank adjustment').slice(0,80), createdAt:Date.now() });
-        app = bank;
-      }
-      S.settings.check = { bank, app, date: today() };
-      saveState(); closeSheet();
-      toast(app === bank ? 'Matches your bank.' : 'Saved. The app is off by ' + money(app - bank) + '.');
-    };
-    setTimeout(() => inp.focus(), 250);
-  });
-}
-
-async function copyCSV(){
-  const q = s => '"' + String(s ?? '').replace(/"/g,'""') + '"';
-  const lines = [['Date','Type','Amount','From','To','Note'].join(',')];
-  sortedMovs().forEach(m => lines.push([m.date, m.type, (m.amount/100).toFixed(2), q(m.from ? nameOf(m.from) : ''), q(m.to ? nameOf(m.to) : ''), q(m.note)].join(',')));
-  const text = lines.join('\n');
-  try { await navigator.clipboard.writeText(text); toast('History copied. Paste it into Numbers or a spreadsheet.'); }
-  catch(e){
-    openSheet(head('History as CSV') + `<p class="muted">Select all and copy.</p><textarea id="csvBox" style="width:100%;min-height:240px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);padding:10px;font-size:13px" readonly>${esc(text)}</textarea>`, r => { const t = r.querySelector('#csvBox'); t.focus(); t.select(); });
+function txRow(t) {
+  const time = new Date(t.date).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  if (t.type === 'move') {
+    const a = cat(t.from), b = cat(t.to);
+    return `<button class="row" onclick="openTx('${t.id}')">
+      <span class="ico" style="background:var(--brand-soft);color:var(--brand)">⇄</span>
+      <span class="main"><div class="name">Moved money</div>
+      <div class="sub">${esc(a ? a.name : 'Deleted')} → ${esc(b ? b.name : 'Deleted')} · ${time}</div></span>
+      <span class="val">${fmt(t.amount)}</span></button>`;
   }
+  const c = cat(t.catId);
+  const isIn = t.type === 'in';
+  const title = t.note || (isIn ? 'Money added' : 'Spent');
+  return `<button class="row" onclick="openTx('${t.id}')">
+    <span class="ico ${t.type}">${isIn ? '+' : '−'}</span>
+    <span class="main"><div class="name">${esc(title)}</div>
+    <div class="sub">${esc(c ? c.name : 'Deleted category')} · ${time}</div></span>
+    <span class="val ${isIn ? 'pos' : 'neg'}">${isIn ? '+' : '−'}${fmt(t.amount)}</span></button>`;
 }
 
-/* ---------- events ---------- */
-document.addEventListener('click', e => {
-  const t = e.target.closest('[data-act],[data-tab],#fab');
+function setFilter(k) { filter = k; renderHistory(); }
+
+function showView(v) {
+  $('view-home').classList.toggle('hidden', v !== 'home');
+  $('view-history').classList.toggle('hidden', v !== 'history');
+  $('tab-home').classList.toggle('on', v === 'home');
+  $('tab-history').classList.toggle('on', v === 'history');
+  window.scrollTo(0, 0);
+}
+
+/* ---------- sheet ---------- */
+function openSheet(html) {
+  $('sheet-body').innerHTML = html;
+  $('backdrop').classList.add('show');
+  $('sheet').classList.add('show');
+}
+function closeSheet() {
+  $('backdrop').classList.remove('show');
+  $('sheet').classList.remove('show');
+  document.activeElement && document.activeElement.blur();
+}
+function toast(msg) {
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function catOptions(selected, withNew) {
+  let o = state.categories.map(c =>
+    `<option value="${c.id}" ${c.id === selected ? 'selected' : ''}>${esc(c.name)} (${fmt(balance(c.id))})</option>`).join('');
+  if (withNew) o += `<option value="__new" ${!state.categories.length ? 'selected' : ''}>＋ New category…</option>`;
+  return o;
+}
+
+/* Add money / Spend */
+function openMoney(type) {
+  const isIn = type === 'in';
+  if (!isIn && !state.categories.length) { toast('Add some money first'); return; }
+  openSheet(`
+    <h3>${isIn ? 'Add money' : 'Spend money'}</h3>
+    <div class="field">
+      <input id="f-amt" class="input money-input" inputmode="decimal" placeholder="$0.00" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>${isIn ? 'Put it in' : 'Take it from'}</label>
+      <select id="f-cat" class="input" onchange="toggleNewCat()">${catOptions(state.categories[0] && state.categories[0].id, isIn)}</select>
+    </div>
+    <div class="field ${isIn && !state.categories.length ? '' : 'hidden'}" id="f-newwrap">
+      <label>New category name</label>
+      <input id="f-newcat" class="input" placeholder="e.g. Savings, Mom's money" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>${isIn ? 'Where it came from (optional)' : 'What did you spend it on?'}</label>
+      <input id="f-note" class="input" placeholder="${isIn ? 'e.g. Salary, Mom sent' : 'e.g. Groceries, Sent to John'}" autocomplete="off">
+    </div>
+    <div class="err" id="f-err"></div>
+    <div class="stack">
+      <button class="btn btn-primary" onclick="saveMoney('${type}')">${isIn ? 'Add money' : 'Record spending'}</button>
+      <button class="btn btn-ghost" onclick="closeSheet()">Cancel</button>
+    </div>`);
+  setTimeout(() => $('f-amt').focus(), 300);
+}
+function toggleNewCat() {
+  $('f-newwrap').classList.toggle('hidden', $('f-cat').value !== '__new');
+}
+function saveMoney(type) {
+  const amount = toCents($('f-amt').value);
+  const note = $('f-note').value.trim();
+  let catId = $('f-cat').value;
+  const err = $('f-err');
+  if (amount <= 0) { err.textContent = 'Enter an amount.'; return; }
+  if (catId === '__new') {
+    const name = $('f-newcat').value.trim();
+    if (!name) { err.textContent = 'Give the new category a name.'; return; }
+    catId = addCategory(name);
+  }
+  if (type === 'out') {
+    if (!note) { err.textContent = 'Write what you spent it on.'; return; }
+    const b = balance(catId);
+    if (amount > b && !confirm(`${cat(catId).name} only has ${fmt(b)}. Record it anyway? The category will go negative.`)) return;
+  }
+  state.tx.push({ id: uid(), type, amount, catId, note, date: Date.now() });
+  save(); render(); closeSheet();
+  toast(type === 'in' ? `Added ${fmt(amount)}` : `Spent ${fmt(amount)}`);
+}
+
+/* Categories */
+function addCategory(name) {
+  const id = uid();
+  state.categories.push({ id, name, color: COLORS[state.categories.length % COLORS.length] });
+  return id;
+}
+let pickedColor = null;
+function openCategory(id) {
+  const c = id ? cat(id) : null;
+  pickedColor = c ? c.color : COLORS[state.categories.length % COLORS.length];
+  const b = c ? balance(c.id) : 0;
+  const others = state.categories.filter(x => !c || x.id !== c.id);
+  openSheet(`
+    <h3>${c ? esc(c.name) : 'New category'}</h3>
+    ${c ? `<div class="detail"><div><span>Balance</span><span>${fmt(b)}</span></div></div>` : ''}
+    <div class="field">
+      <label>Name</label>
+      <input id="c-name" class="input" value="${c ? esc(c.name) : ''}" placeholder="e.g. Savings" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>Color</label>
+      <div class="swatches">${COLORS.map(col =>
+        `<button class="sw ${col === pickedColor ? 'on' : ''}" style="background:${col}" onclick="pickColor(this,'${col}')"></button>`).join('')}</div>
+    </div>
+    <div class="err" id="c-err"></div>
+    <div class="stack">
+      <button class="btn btn-primary" onclick="saveCategory(${c ? `'${c.id}'` : ''})">${c ? 'Save' : 'Create category'}</button>
+      ${c && others.length && b > 0 ? `<button class="btn btn-ghost" style="color:var(--brand)" onclick="openMove('${c.id}')">Move money to another category</button>` : ''}
+      ${c ? `<button class="btn btn-danger" onclick="deleteCategory('${c.id}')">Delete category</button>` : ''}
+      <button class="btn btn-ghost" onclick="closeSheet()">Cancel</button>
+    </div>`);
+}
+function pickColor(el, col) {
+  pickedColor = col;
+  document.querySelectorAll('.sw').forEach(s => s.classList.remove('on'));
+  el.classList.add('on');
+}
+function saveCategory(id) {
+  const name = $('c-name').value.trim();
+  if (!name) { $('c-err').textContent = 'Enter a name.'; return; }
+  if (id) { const c = cat(id); c.name = name; c.color = pickedColor; }
+  else { const nid = addCategory(name); cat(nid).color = pickedColor; }
+  save(); render(); closeSheet();
+}
+function deleteCategory(id) {
+  const c = cat(id), b = balance(id);
+  if (b !== 0) {
+    alert(`“${c.name}” still has ${fmt(b)}. Move or spend that money first, then delete the category.`);
+    return;
+  }
+  if (!confirm(`Delete “${c.name}”? Its history will stay.`)) return;
+  state.categories = state.categories.filter(x => x.id !== id);
+  if (filter === id) filter = 'all';
+  save(); render(); closeSheet(); toast('Category deleted');
+}
+
+/* Move money between categories */
+function openMove(fromId) {
+  const from = cat(fromId);
+  const opts = state.categories.filter(x => x.id !== fromId)
+    .map(x => `<option value="${x.id}">${esc(x.name)} (${fmt(balance(x.id))})</option>`).join('');
+  openSheet(`
+    <h3>Move money</h3>
+    <p class="hint" style="text-align:center;margin:-8px 0 14px">From ${esc(from.name)} · ${fmt(balance(fromId))} available</p>
+    <div class="field"><input id="m-amt" class="input money-input" inputmode="decimal" placeholder="$0.00"></div>
+    <div class="field"><label>Move to</label><select id="m-to" class="input">${opts}</select></div>
+    <div class="err" id="m-err"></div>
+    <div class="stack">
+      <button class="btn btn-primary" onclick="saveMove('${fromId}')">Move</button>
+      <button class="btn btn-ghost" onclick="closeSheet()">Cancel</button>
+    </div>`);
+}
+function saveMove(fromId) {
+  const amount = toCents($('m-amt').value);
+  if (amount <= 0) { $('m-err').textContent = 'Enter an amount.'; return; }
+  if (amount > balance(fromId)) { $('m-err').textContent = 'That is more than this category has.'; return; }
+  state.tx.push({ id: uid(), type: 'move', amount, from: fromId, to: $('m-to').value, note: '', date: Date.now() });
+  save(); render(); closeSheet(); toast(`Moved ${fmt(amount)}`);
+}
+
+/* Transaction details */
+function openTx(id) {
+  const t = state.tx.find(x => x.id === id);
   if (!t) return;
-  if (t.dataset.tab){ tab = t.dataset.tab; render(); window.scrollTo(0,0); return; }
-  if (mode === 'loading' && t.dataset.act !== 'close' && t.dataset.act !== 'csv'){ toast('Still loading your saved data. Try again in a moment.'); return; }
-  if (t.id === 'fab'){ movementSheet('deposit'); return; }
-  const a = t.dataset.act;
-  if (a === 'close') closeSheet();
-  else if (a === 'new'){ closeSheet(); movementSheet(t.dataset.type, { from:t.dataset.from, to:t.dataset.to }); }
-  else if (a === 'assign') movementSheet('transfer', { from:UN });
-  else if (a === 'bucket') bucketSheet(t.dataset.id);
-  else if (a === 'editbucket'){ closeSheet(); editBucketSheet(t.dataset.id); }
-  else if (a === 'newbucket') editBucketSheet(null);
-  else if (a === 'mov') movSheet(t.dataset.id);
-  else if (a === 'reconcile') reconcileSheet();
-  else if (a === 'histof'){ closeSheet(); histFilter = t.dataset.id; tab = 'history'; render(); }
-  else if (a === 'csv') copyCSV();
-  else if (a === 'cur'){ S.settings.currency = t.dataset.cur; saveState(); }
-});
-document.addEventListener('change', e => {
-  if (e.target.id === 'histFilter'){ histFilter = e.target.value; render(); }
-  if (e.target.id === 'curInput'){ const v = e.target.value.trim().slice(0,4); if (v){ S.settings.currency = v; saveState(); } }
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#sheet').hidden) closeSheet(); });
+  const d = new Date(t.date).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+  let rows;
+  if (t.type === 'move') {
+    const a = cat(t.from), b = cat(t.to);
+    rows = `<div><span>Type</span><span>Moved between categories</span></div>
+      <div><span>From</span><span>${esc(a ? a.name : 'Deleted')}</span></div>
+      <div><span>To</span><span>${esc(b ? b.name : 'Deleted')}</span></div>`;
+  } else {
+    const c = cat(t.catId);
+    rows = `<div><span>Type</span><span>${t.type === 'in' ? 'Money in' : 'Spent'}</span></div>
+      <div><span>Category</span><span>${esc(c ? c.name : 'Deleted')}</span></div>
+      <div><span>${t.type === 'in' ? 'Note' : 'Spent on'}</span><span>${esc(t.note || '—')}</span></div>`;
+  }
+  openSheet(`
+    <h3>${fmt(t.amount)}</h3>
+    <div class="detail">${rows}<div><span>Date</span><span>${d}</span></div></div>
+    <div class="stack">
+      <button class="btn btn-danger" onclick="deleteTx('${t.id}')">Delete this entry</button>
+      <button class="btn btn-ghost" onclick="closeSheet()">Close</button>
+    </div>
+    <p class="hint" style="text-align:center">Deleting an entry undoes it and updates your balances.</p>`);
+}
+function deleteTx(id) {
+  if (!confirm('Delete this entry? Your balances will be updated.')) return;
+  state.tx = state.tx.filter(x => x.id !== id);
+  save(); render(); closeSheet(); toast('Entry deleted');
+}
 
-/* ---------- boot ---------- */
-const c = cacheRead();
-if (c){ S.settings = {...S.settings, ...(c.settings||{})}; S.buckets = c.buckets || []; S.movements = c.movements || {}; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
 render();
-connect();
-})();
 </script>
 </body>
 </html>
